@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/MintSoup/taghunt/issues"
   },
-  "homepage": "https://github.com/MintSoup/taghunt#readme"
+  "homepage": "https://github.com/MintSoup/taghunt#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
 }
