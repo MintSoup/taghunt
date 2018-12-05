@@ -10,13 +10,14 @@ if (!String.prototype.format) {
 }
 
 const mysql = require('mysql');
-
+const random = require('random-number');
 module.exports.attach = function(app) {
 
   app.get("/create", function(req, res) {
-    if (req.query.id && req.query.type)
-      res.send(createTag(req.query.id, req.query.type))
+    if (req.query.type && req.query.count) {
+      res.send(createTag(req.query.type, req.query.count))
 
+    }
   })
 
 }
@@ -26,18 +27,19 @@ function getTag(id) {
 }
 
 
-function createTag(id, type) {
-  try {
-    var tag = {
-      id: id,
-      type: type,
-      active: false
-    }
-    runSQL("INSERT INTO tags VALUES ('{0}', '{1}', FALSE)".format(id, type));
+function createTag(type, count) {
+  var tags = []
+  var alphanumeric = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+  for (var i = 0; i < parseInt(count); i++) {
 
-  } catch (err) {
-    console.log("ERROR " + err.message)
+    var id = ""
+    for (var f = 0; f < 16; f++) {
+      id += alphanumeric[random({min: 0, max: alphanumeric.length-1, integer: true})]
+    }
+    tags.push({id: id, type: type, active: false})
+    runSQL("INSERT INTO tags VALUES ('{0}', '{1}', FALSE)".format(id, type))
   }
+  return tags
 
 }
 
