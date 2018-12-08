@@ -18,5 +18,8 @@ tagHandler.attach(app)
 userhandler.attach(app)
 
 
+app.get("/", function(req, res){
+  res.render("home")
+})
 
 app.listen(80)
