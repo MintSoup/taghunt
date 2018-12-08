@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const tagHandler = require('./taghandler');
+const userhandler = require('./userhandler');
 const cookie = require('cookie-parser');
 
 
@@ -18,7 +19,6 @@ app.use(cookie("big oof"))
 
 
 tagHandler.attach(app)
-
-
+userhandler.attach(app)
 
 app.listen(80)

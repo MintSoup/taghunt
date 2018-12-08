@@ -55,16 +55,6 @@ module.exports.attach = function(app) {
     }
   })
 
-  app.get("/login/:username", function(req, res){
-    res.cookie("username", req.params.username).send("Cookie set")
-  })
-
-  app.get("/login", function(req, res){
-    res.render("login.ejs")
-  })
-
-
-
 }
 
 function getTag(id, callback) {
