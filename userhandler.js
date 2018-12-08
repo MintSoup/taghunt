@@ -1,10 +1,13 @@
 const mysql = require('mysql');
 
 module.exports.attach = function(app) {
+
+  //login request handler (the part that actually logs in)
   app.get("/login/:username", function(req, res) {
     res.cookie("username", req.params.username).end()
   })
 
+  //login page
   app.get("/login", function(req, res) {
 
     if(!req.cookies["username"])
@@ -14,6 +17,7 @@ module.exports.attach = function(app) {
     }
   })
 
+  //logs out
   app.get("/logout", function(req, res){
     res.clearCookie("username").end()
   })

@@ -45,7 +45,7 @@ module.exports.attach = function(app) {
       })
     });
   })
-  //claim tag
+  //claim tag - this part needs to be renamed and a separate page needs to be created for the html
   app.get("/tag/:id", function(req, res){
     if(!req.cookies["username"]){
       res.redirect("/login/")
@@ -56,13 +56,14 @@ module.exports.attach = function(app) {
   })
 
 }
-
+//get tag data
 function getTag(id, callback) {
   sqlhandler.run(`select * from tags where id='${id}'`, function(result) {
     if (callback) callback(result)
   })
 }
-function createTag(type, count, callback) {
+//creates tags
+function createTags(type, count, callback) {
   var tags = []
   var alphanumeric = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
   for (var i = 0; i < parseInt(count); i++) {
@@ -86,6 +87,7 @@ function createTag(type, count, callback) {
   if (callback) callback(tags)
 
 }
+//actiavet/deactive tags
 function setActive(id, state, callback) {
   sqlhandler.run("update tags SET active={0} where id='{1}'".format(state ? "TRUE" : "FALSE", id), function(){
     if (callback) callback()

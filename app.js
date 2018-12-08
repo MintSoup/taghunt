@@ -18,6 +18,7 @@ tagHandler.attach(app)
 userhandler.attach(app)
 
 
+//homepage (index.html lol)
 app.get("/", function(req, res) {
   if (req.cookies["username"]) {
     res.render("home", {
