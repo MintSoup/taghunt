@@ -14,11 +14,9 @@ app.use(express.static('./assets/'));
 app.use(cookie("big oof"))
 
 
-
-
-
-
 tagHandler.attach(app)
 userhandler.attach(app)
+
+
 
 app.listen(80)

@@ -6,6 +6,11 @@ module.exports.attach = function(app) {
   })
 
   app.get("/login", function(req, res) {
-    res.render("login.ejs")
+
+    if(!req.cookies.username)
+      res.render("login")
+    else{
+      res.send("<script>alert('You are already logged in');document.window</script>").redirect("/")
+    }
   })
 }

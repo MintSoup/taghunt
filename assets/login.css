@@ -7,14 +7,14 @@ body {
 input[type="text"] {
   background-color: transparent;
   border: none;
-  border-bottom: 3px solid #26ff00;
+  border-bottom: 3px solid #00e007;
   padding: 8px;
   font-size: 18px;
   color: white;
 }
 
 button{
-  background-color: #009911;
+  background-color: #00e007;
   cursor: pointer;
   border: none;
   color: white;
