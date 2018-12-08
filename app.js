@@ -18,8 +18,15 @@ tagHandler.attach(app)
 userhandler.attach(app)
 
 
-app.get("/", function(req, res){
-  res.render("home")
+app.get("/", function(req, res) {
+  if (req.cookies["username"]) {
+    res.render("home", {
+      username: req.cookies["username"]
+    })
+  }
+  else{
+    res.redirect("/login")
+  }
 })
 
 app.listen(80)

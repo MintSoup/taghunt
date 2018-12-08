@@ -1,9 +1,8 @@
 $(function() {
-  $("#submit").click(function() {
+  $("#logout").click(function() {
     $.ajax({
-      url: location.origin + '/login/' + $("#username").val(),
+      url: location.origin + '/logout/',
       success: function(result) {
-
         document.location.href = location.origin
       },
       async: false

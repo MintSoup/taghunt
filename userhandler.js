@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 module.exports.attach = function(app) {
   app.get("/login/:username", function(req, res) {
-    res.cookie("username", req.params.username).send(`logged in as: ${req.params.username}`)
+    res.cookie("username", req.params.username).end()
   })
 
   app.get("/login", function(req, res) {
@@ -10,7 +10,11 @@ module.exports.attach = function(app) {
     if(!req.cookies["username"])
       res.render("login")
     else{
-      res.send("<script>alert('You are already logged in');</script>").redirect("/")
+      res.send("<script>alert('You are already logged in');document.location.href = window.origin;</script>").redirect("/")
     }
+  })
+
+  app.get("/logout", function(req, res){
+    res.clearCookie("username").end()
   })
 }

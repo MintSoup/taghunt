@@ -1,0 +1,23 @@
+body {
+  background-color: #202020;
+  color: white;
+  font-size: 20px;
+}
+
+#logout {
+  background-color: #00e007;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 6px 20px;
+  font-size: 20px;
+  margin: 8px 0px;
+  width: 100%;
+}
+
+#log {
+  position: absolute;
+  padding: 5px;
+  right: 0;
+  margin: 0px 20px;
+}
