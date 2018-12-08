@@ -1,3 +1,4 @@
+//String.format
 if (!String.prototype.format) {
   String.prototype.format = function() {
     var args = arguments;
@@ -11,8 +12,9 @@ if (!String.prototype.format) {
 
 const sqlhandler = require('./sqlhandler');
 const random = require('random-number');
-module.exports.attach = function(app) {
 
+module.exports.attach = function(app) {
+  //creates an unactivated tag
   app.get("/create", function(req, res) {
     if (req.query.type && req.query.count) {
       createTag(req.query.type, req.query.count, function(tags) {
@@ -21,13 +23,13 @@ module.exports.attach = function(app) {
 
     }
   })
-
+  //returns tag data
   app.get("/data/:id", function(req, res) {
     getTag(req.params.id, function(result) {
       res.send(result)
     });
   })
-
+  //activate tag
   app.get("/activate/:id", function(req, res) {
     setActive(req.params.id, true, function() {
       getTag(req.params.id, function(result) {
@@ -35,7 +37,7 @@ module.exports.attach = function(app) {
       })
     });
   })
-
+  //deactivate tag
   app.get("/deactivate/:id", function(req, res) {
     setActive(req.params.id, false, function() {
       getTag(req.params.id, function(result) {
@@ -43,6 +45,25 @@ module.exports.attach = function(app) {
       })
     });
   })
+  //claim tag
+  app.get("/tag/:id", function(req, res){
+    if(!req.cookies["username"]){
+      res.redirect("/login/")
+    }
+    else{
+      res.send(`logged in as ${req.cookies['username']}`)
+    }
+  })
+
+  app.get("/login/:username", function(req, res){
+    res.cookie("username", req.params.username).send("Cookie set")
+  })
+
+  app.get("/login", function(req, res){
+    res.render("login.ejs")
+  })
+
+
 
 }
 
@@ -51,8 +72,6 @@ function getTag(id, callback) {
     if (callback) callback(result)
   })
 }
-
-
 function createTag(type, count, callback) {
   var tags = []
   var alphanumeric = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
@@ -77,14 +96,9 @@ function createTag(type, count, callback) {
   if (callback) callback(tags)
 
 }
-
 function setActive(id, state, callback) {
   sqlhandler.run("update tags SET active={0} where id='{1}'".format(state ? "TRUE" : "FALSE", id), function(){
     if (callback) callback()
   })
-
-}
-
-function runSQL(query) {
 
 }

@@ -1,0 +1,32 @@
+
+
+body {
+  background-color: #202020;
+}
+
+input[type="text"] {
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid #26ff00;
+  padding: 8px;
+  font-size: 18px;
+  color: white;
+}
+
+button{
+  background-color: #009911;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 20px;
+  margin: 8px 0;
+}
+
+form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
