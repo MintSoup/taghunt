@@ -2,6 +2,8 @@ body {
   background-color: #202020;
   color: white;
   font-size: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 #logout {
@@ -13,11 +15,20 @@ body {
   font-size: 20px;
   margin: 8px 0px;
   width: 100%;
+  border-radius: 0;
+  transition: 0.15s;
+}
+#logout:hover{
+  background-color: #0c7f00;
+  transition: 0.15s;
 }
 
 #log {
   position: absolute;
-  padding: 5px;
-  right: 0;
-  margin: 0px 20px;
+  bottom: 0;
+  width: 100%;
+  padding-top: 5px;
+  margin: 0;
+  text-align: center;
+  border-top: 1px solid white;
 }
