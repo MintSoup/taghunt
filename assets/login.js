@@ -6,7 +6,21 @@ $(function() {
 
         document.location.href = location.origin
       },
-      async: false
+      async: true
+    })
+  })
+  $("#username").keyup(function() {
+    $.ajax({
+      url: location.origin + '/account/' + $("#username").val(),
+      success: function(result) {
+        console.log(result)
+        if (result.length == 0) {
+          $("#submit").text("Create Account")
+        } else {
+          $("#submit").text("Log in")
+        }
+      },
+      async: true
     })
   })
 })

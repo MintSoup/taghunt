@@ -46,14 +46,14 @@ module.exports.attach = function(app) {
     });
   })
   //claim tag - this part needs to be renamed and a separate page needs to be created for the html
-  app.get("/tag/:id", function(req, res){
-    if(!req.cookies["username"]){
+  app.get("/tag/:id", function(req, res) {
+    if (!req.cookies["username"]) {
       res.redirect("/login/")
-    }
-    else{
-      res.send(`logged in as ${req.cookies['username']}`)
+    } else {
+
     }
   })
+
 
 }
 //get tag data
@@ -63,13 +63,13 @@ function getTag(id, callback) {
   })
 }
 //creates tags
-function createTags(type, count, callback) {
+function createTag(type, count, callback) {
   var tags = []
   var alphanumeric = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
   for (var i = 0; i < parseInt(count); i++) {
 
     var id = ""
-    for (var f = 0; f < 16; f++) {
+    for (var f = 0; f < 24; f++) {
       id += alphanumeric[random({
         min: 0,
         max: alphanumeric.length - 1,
@@ -89,7 +89,7 @@ function createTags(type, count, callback) {
 }
 //actiavet/deactive tags
 function setActive(id, state, callback) {
-  sqlhandler.run("update tags SET active={0} where id='{1}'".format(state ? "TRUE" : "FALSE", id), function(){
+  sqlhandler.run("update tags SET active={0} where id='{1}'".format(state ? "TRUE" : "FALSE", id), function() {
     if (callback) callback()
   })
 

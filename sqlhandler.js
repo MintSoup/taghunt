@@ -11,7 +11,6 @@ module.exports.run = function(query, callback) {
 
   con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
     con.query(query, function(err, result) {
       if (err) {
         throw err
