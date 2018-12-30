@@ -94,3 +94,19 @@ function setActive(id, state, callback) {
   })
 
 }
+
+function claim(id, username, callback) {
+  sqlhandler.run(`select * from users where name='${username}'`, function(user) {
+    if (user.length == 0) callback(1)
+    return
+    sqlhandler.run(`select * from tags where id=${id}`, function(tag) {
+      if (tag.length == 0) callback(2)
+      return
+      var ownedTags = JSON.parse(user["ownedTags"])
+      ownedTags.push(tag["id"])
+      var tagString = JSON.strigify(ownedTags)
+      sqlhandler.run(`update users set ownedTags='${tagString}' where name=${username}`)
+
+    })
+  })
+}
