@@ -12,6 +12,7 @@ if (!String.prototype.format) {
 
 const sqlhandler = require('./sqlhandler');
 const random = require('random-number');
+const userhandler = require('./userhandler')
 
 module.exports.attach = function(app) {
   //creates an unactivated tag
@@ -52,6 +53,17 @@ module.exports.attach = function(app) {
     } else {
 
     }
+  })
+
+  app.get("/claim/:id", function(req, res) {
+    claim(req.params.id, req.cookies["username"], function(result) {
+      if (result == 1)
+        res.send("Invalid username.").end()
+      else if (result == 2)
+        res.send("Invalid tag.").end()
+      else
+        res.send(result)
+    })
   })
 
 
@@ -95,17 +107,34 @@ function setActive(id, state, callback) {
 
 }
 
+//claim a tag to a Username
 function claim(id, username, callback) {
   sqlhandler.run(`select * from users where name='${username}'`, function(user) {
-    if (user.length == 0) callback(1)
-    return
-    sqlhandler.run(`select * from tags where id=${id}`, function(tag) {
-      if (tag.length == 0) callback(2)
+    if (user.length == 0) {
+      callback(1)
       return
-      var ownedTags = JSON.parse(user["ownedTags"])
-      ownedTags.push(tag["id"])
-      var tagString = JSON.strigify(ownedTags)
-      sqlhandler.run(`update users set ownedTags='${tagString}' where name=${username}`)
+    }
+    sqlhandler.run(`select * from tags where id='${id}'`, function(tag) {
+
+      if (tag.length == 0) {
+        callback(2)
+        return
+      }
+      if (tag[0]["active"] != 1) {
+        callback(2)
+        return
+      }
+      var ownedTags = JSON.parse(user[0]["ownedTags"])
+      ownedTags.push(tag[0]["id"])
+      var tagString = JSON.stringify(ownedTags)
+      sqlhandler.run(`update users set ownedTags='${tagString}' where name='${username}'`, function(result) {
+        setActive(tag[0]["id"], false, function() {
+          userhandler.getData(username, function(result) {
+            callback(result)
+          })
+        })
+
+      })
 
     })
   })
