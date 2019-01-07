@@ -1,0 +1,14 @@
+div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: #00e007;
+  font-size: 32px;
+  font-family: Arial;
+}
+
+body {
+  background-color: #202020;
+}

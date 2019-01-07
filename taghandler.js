@@ -14,6 +14,8 @@ const sqlhandler = require('./sqlhandler');
 const random = require('random-number');
 const userhandler = require('./userhandler')
 
+var neededtypes = ["heaven", "earth"]
+
 module.exports.attach = function(app) {
   //creates an unactivated tag
   app.get("/create", function(req, res) {
@@ -46,12 +48,27 @@ module.exports.attach = function(app) {
       })
     });
   })
-  //claim tag - this part needs to be renamed and a separate page needs to be created for the html
+
   app.get("/tag/:id", function(req, res) {
     if (!req.cookies["username"]) {
-      res.redirect("/login/")
+      res.render("claimed", {
+        message: "Please log in and rescan the code.",
+      })
     } else {
-
+      claim(req.params.id, req.cookies["username"], function(result) {
+        if (result == 1)
+          res.render("claimed", {
+            message: "Invalid username."
+          })
+        else if (result == 2)
+          res.render("claimed", {
+            message: "Invalid tag."
+          })
+        else
+          res.render("claimed", {
+            message: `You claimed a ${result["type"]} tag!`
+          })
+      })
     }
   })
 
@@ -62,7 +79,7 @@ module.exports.attach = function(app) {
       else if (result == 2)
         res.send("Invalid tag.").end()
       else
-        res.send(result)
+        res.send(result).end()
     })
   })
 
@@ -129,9 +146,7 @@ function claim(id, username, callback) {
       var tagString = JSON.stringify(ownedTags)
       sqlhandler.run(`update users set ownedTags='${tagString}' where name='${username}'`, function(result) {
         setActive(tag[0]["id"], false, function() {
-          userhandler.getData(username, function(result) {
-            callback(result)
-          })
+          callback(tag[0])
         })
 
       })
