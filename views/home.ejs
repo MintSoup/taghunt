@@ -4,18 +4,35 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TagHunt</title>
   <link rel="stylesheet" href="/home.css">
   <script src="/home.js"></script>
+  <script>
+    $(function() {
+
+    })
+  </script>
 </head>
 
 <body>
-  <div id=log>
+
+  <div class="w3-cell-row">
+    <div class="w3-col l3 m4 s6"><img class=icon src="earth.svg"></img></div>
+    <div class="w3-col l3 m4 s6"><img class=icon src="fire.svg"></img></div>
+    <div class="w3-col l3 m4 s6"><img class=icon src="wind.svg"></img></div>
+    <div class="w3-col l3 m4 s6"><img class=icon src="water.svg"></img></div>
+
+  </div>
+  <div class="w3-cell-row log">
     Logged in as
     <%= username %><br>
     <button id="logout">Log Out</button>
   </div>
+
+
+
 </body>
 
 </html>

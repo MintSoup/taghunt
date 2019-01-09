@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="256mm"
-   height="256mm"
-   viewBox="0 0 256 256"
+   width="32mm"
+   height="32mm"
+   viewBox="0 0 32 32"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -224,11 +224,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="36.963875"
-     inkscape:cy="781.63847"
+     inkscape:zoom="2.8"
+     inkscape:cx="79.420736"
+     inkscape:cy="75.938317"
      inkscape:document-units="mm"
-     inkscape:current-layer="g1289"
+     inkscape:current-layer="layer1-8"
      showgrid="false"
      inkscape:snap-global="false"
      inkscape:window-width="1366"
@@ -252,23 +252,23 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-41)">
+     transform="translate(0,-265)">
     <g
        id="layer1-8"
        inkscape:label="Layer 1">
       <circle
-         r="121.46408"
-         cy="169"
-         cx="128"
+         r="14.733627"
+         cy="281"
+         cx="16"
          id="path2541"
-         style="opacity:1;fill:#7e3200;fill-opacity:1;stroke:#000000;stroke-width:6.99130487;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         style="opacity:1;fill:#7e3200;fill-opacity:1;stroke:#000000;stroke-width:0.84804732;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <g
          style="stroke:#000000;stroke-opacity:1"
          id="g1019"
          transform="matrix(1.033446,0.79944892,-0.81473656,1.0140545,182.60218,-90.624998)" />
       <g
          id="g1289"
-         transform="rotate(-15,135.32323,202.67647)">
+         transform="matrix(0.11716708,-0.03139483,0.03139483,0.11716708,-5.3301115,265.58641)">
         <g
            id="g1293"
            transform="translate(-1.0073499,-5.3251829)">

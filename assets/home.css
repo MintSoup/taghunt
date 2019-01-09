@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #202020;
   color: white;
@@ -18,17 +22,32 @@ body {
   border-radius: 0;
   transition: 0.15s;
 }
-#logout:hover{
+
+#logout:hover {
   background-color: #0c7f00;
   transition: 0.15s;
 }
 
-#log {
+.log {
   position: absolute;
   bottom: 0;
   width: 100%;
   padding-top: 5px;
   margin: 0;
   text-align: center;
-  border-top: 1px solid white;
+}
+
+.icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+.outer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
