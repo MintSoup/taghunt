@@ -32,6 +32,7 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 0%;
   padding-top: 5px;
   margin: 0;
   text-align: center;
@@ -39,15 +40,21 @@ body {
 
 .icon {
   display: block;
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   width: 80%;
+  transition: 0.2s;
 }
-.outer {
-  display: table;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
+
+.icon:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.icons {
+  display: inline-block;
   width: 100%;
+  transition: 0.2s;
 }
