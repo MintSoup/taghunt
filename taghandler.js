@@ -26,12 +26,6 @@ module.exports.attach = function(app) {
 
     }
   })
-  //returns tag data
-  app.get("/data/:id", function(req, res) {
-    getTag(req.params.id, function(result) {
-      res.send(result)
-    });
-  })
   //activate tag
   app.get("/activate/:id", function(req, res) {
     setActive(req.params.id, true, function() {
@@ -40,6 +34,13 @@ module.exports.attach = function(app) {
       })
     });
   })
+  //counts and returns the number of tag swith 'type' type
+  app.get("/count/:type", function(req, res) {
+    sqlhandler.run(`select * from tags where type='${req.params.type}' and active=true`, function(result) {
+      res.send(result.length + "")
+    })
+  })
+
   //deactivate tag
   app.get("/deactivate/:id", function(req, res) {
     setActive(req.params.id, false, function() {
@@ -48,7 +49,7 @@ module.exports.attach = function(app) {
       })
     });
   })
-
+  //claim tag with button
   app.get("/tag/:id", function(req, res) {
     if (!req.cookies["username"]) {
       res.render("claimed", {
@@ -64,6 +65,10 @@ module.exports.attach = function(app) {
           res.render("claimed", {
             message: "Invalid tag."
           })
+        else if (result == 3)
+          res.render("claimed", {
+            message: "Tag has already been claimed."
+          })
         else
           res.render("claimed", {
             message: `You claimed a ${result["type"]} tag!`
@@ -71,26 +76,35 @@ module.exports.attach = function(app) {
       })
     }
   })
-
+  //claim tag without button
   app.get("/claim/:id", function(req, res) {
     claim(req.params.id, req.cookies["username"], function(result) {
       if (result == 1)
         res.send("Invalid username.").end()
       else if (result == 2)
         res.send("Invalid tag.").end()
+      else if (result == 3)
+        res.send("Tag has already been claimed").end()
       else
         res.send(result).end()
     })
   })
 
+  //get tag data
+  app.get("/data/:id", function(req, res) {
+    getTag(req.params.id, function(result) {
+      res.send(result)
+    })
+  })
 
 }
 //get tag data
-function getTag(id, callback) {
+module.exports.getTag = function(id, callback) {
   sqlhandler.run(`select * from tags where id='${id}'`, function(result) {
     if (callback) callback(result)
   })
 }
+var getTag = module.exports.getTag
 //creates tags
 function createTag(type, count, callback) {
   var tags = []
@@ -108,9 +122,9 @@ function createTag(type, count, callback) {
     tags.push({
       id: id,
       type: type,
-      active: false
+      active: true
     })
-    sqlhandler.run(`insert into tags values ('${id}', '${type}', FALSE)`, function(result) {})
+    sqlhandler.run(`insert into tags values ('${id}', '${type}', TRUE)`, function(result) {})
 
   }
   if (callback) callback(tags)
@@ -138,7 +152,7 @@ function claim(id, username, callback) {
         return
       }
       if (tag[0]["active"] != 1) {
-        callback(2)
+        callback(3)
         return
       }
       var ownedTags = JSON.parse(user[0]["ownedTags"])

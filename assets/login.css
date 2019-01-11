@@ -12,6 +12,10 @@ input[type="text"] {
   border-radius: 0;
 }
 
+input[type="text"]:focus {
+  outline: 0;
+}
+
 button {
   background-color: #00e007;
   cursor: pointer;

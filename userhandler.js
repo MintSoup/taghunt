@@ -5,7 +5,7 @@ module.exports.getData = function(username, callback){
     callback(result)
   })
 }
-getData = module.exports.getData
+var getData = module.exports.getData
 
 
 module.exports.attach = function(app) {

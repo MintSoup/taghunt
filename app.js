@@ -21,11 +21,12 @@ userhandler.attach(app)
 //homepage (index.html lol)
 app.get("/", function(req, res) {
   if (req.cookies["username"]) {
+
     res.render("home", {
-      username: req.cookies["username"]
+      username: req.cookies["username"],
+
     })
-  }
-  else{
+  } else {
     res.redirect("/login")
   }
 })
