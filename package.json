@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/MintSoup/taghunt#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mysql": "^2.16.0",
-    "random-number": "0.0.9"
+    "random-number": "0.0.9",
+    "sha3": "^2.0.0"
   }
 }

@@ -8,29 +8,20 @@ $(function() {
   }
   updateTagCount()
   $("#logout").click(function() {
-    $.ajax({
-      url: location.origin + '/logout/',
-      success: function(result) {
-        document.location.href = location.origin
-      },
-      async: true
+    $.get(location.origin + '/logout/', function(result) {
+      document.location.href = location.origin
     })
   })
 
   $('.icon').click(function(e) {
 
     var iconID = $(e.target).attr("id")
-    $.ajax({
-      url: location.origin + '/count/' + iconID,
-      success: function(result) {
+    $.get(location.origin + '/count/' + iconID, function(result) {
         $(".tagtype").text(jsUcfirst(iconID))
         $("#collected").text(tagCount[iconID])
         $("#remaining").text(result)
         $(".w3-modal").css('display', 'block')
-      },
-      async: false
-    })
-
+      })
   })
 
   $('.w3-modal').click(function(e) {
@@ -40,23 +31,15 @@ $(function() {
 
 
   function updateTagCount() {
-    $.ajax({
-      url: location.origin + '/account/' + Cookies.get("username"),
-      success: function(result) {
-        ownedTags = JSON.parse(result[0].ownedTags)
-        for (var i = 0; i < ownedTags.length; i++) {
-          $.ajax({
-            url: location.origin + '/data/' + ownedTags[i],
-            success: function(result) {
-              if (tagCount[result[0]["type"]])
-                tagCount[result[0]["type"]]++;
-              else tagCount[result[0]["type"]] = 1;
-            },
-            async: true
-          })
-        }
-      },
-      async: true
+    $.get(location.origin + "/account/" + Cookies.get("username"), function(result) {
+      ownedTags = JSON.parse(result[0].ownedTags)
+      for (var i = 0; i < ownedTags.length; i++) {
+        $.get(location.origin + "/data/" + ownedTags[i], function(result) {
+          if (tagCount[result[0]["type"]])
+            tagCount[result[0]["type"]]++;
+          else tagCount[result[0]["type"]] = 1;
+        })
+      }
     })
   }
 
@@ -65,4 +48,16 @@ $(function() {
     return string.charAt(0).toUpperCase() + string.slice(1);
 
   }
+
 })
+
+function create(type, count, password) {
+  $.post(location.origin + "/create", {
+      type: type,
+      count: count,
+      password: password
+    },
+    function(data) {
+      console.log(data)
+    });
+}

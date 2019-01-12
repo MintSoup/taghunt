@@ -13,7 +13,7 @@ app.set("view engine", "ejs")
 
 app.use(express.static('./assets/'));
 app.use(cookie("big oof"))
-
+app.use(express.urlencoded()); // to support URL-encoded bodies
 
 tagHandler.attach(app)
 userhandler.attach(app)

@@ -13,19 +13,32 @@ if (!String.prototype.format) {
 const sqlhandler = require('./sqlhandler');
 const random = require('random-number');
 const userhandler = require('./userhandler')
+const {
+  SHA3
+} = require('sha3');
+
+const password = 'f5fa6c56b48890813bb32de1068e2294fa1587c4cd218911d7d74d7c773ee1cb1760c5face2ce26f79b26815fcf9d9a8c28493a9e50979a7e0fc531cee0a223f'
 
 var neededtypes = ["heaven", "earth"]
 
 module.exports.attach = function(app) {
   //creates an unactivated tag
-  app.get("/create", function(req, res) {
-    if (req.query.type && req.query.count) {
-      createTag(req.query.type, req.query.count, function(tags) {
-        res.send(tags)
-      })
+  app.post("/create", function(req, res) {
+    if (req.body.type && req.body.count && req.body.password) {
+      var hash = new SHA3(512);
+      hash.update(req.body.password)
+      if (hash.digest("hex") == password) {
+        createTag(req.body.type, req.body.count, function(tags) {
+          res.send(tags).end()
+        })
+      }
+      else{
+        res.send("bad password").end()
+      }
 
     }
   })
+
   //activate tag
   app.get("/activate/:id", function(req, res) {
     setActive(req.params.id, true, function() {
