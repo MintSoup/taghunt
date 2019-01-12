@@ -1,6 +1,6 @@
 const sqlhandler = require('./sqlhandler');
 
-module.exports.getData = function(username, callback){
+module.exports.getData = function(username, callback) {
   sqlhandler.run(`SELECT * FROM users where name=\'${username}\'`, function(result) {
     callback(result)
   })
@@ -12,10 +12,13 @@ module.exports.attach = function(app) {
 
   //login request handler (the part that actually logs in)
   app.get("/login/:username", function(req, res) {
-    res.cookie("username", req.params.username).end()
-    sqlhandler.run(`select * from users where name='${req.params.username}'`,function(result){
-      if (result.length == 0){
-        sqlhandler.run(`insert into users values ('${req.params.username}', '[]')`)
+    sqlhandler.run(`select * from users where name='${req.params.username}'`, function(result) {
+      if (result.length == 0) {
+        sqlhandler.run(`insert into users values ('${req.params.username}', '[]')`, function() {
+          res.cookie("username", req.params.username).end()
+        })
+      } else {
+        res.cookie("username", req.params.username).end()
       }
     })
   })
@@ -36,7 +39,7 @@ module.exports.attach = function(app) {
   })
   //returns account data
   app.get("/account/:username", function(req, res) {
-    getData(req.params.username, function(result){
+    getData(req.params.username, function(result) {
       res.send(result)
     })
   })
