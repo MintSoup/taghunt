@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const tagHandler = require('./taghandler');
 const userhandler = require('./userhandler');
+const sqlhandler = require('./sqlhandler');
 const cookie = require('cookie-parser');
 
 
@@ -21,11 +22,17 @@ userhandler.attach(app)
 //homepage (index.html lol)
 app.get("/", function(req, res) {
   if (req.cookies["username"]) {
-
-    res.render("home", {
-      username: req.cookies["username"],
-
+    sqlhandler.run(`select * from users where name='${req.cookies["username"]}'`, function(user) {
+      if (user.length != 0) {
+        res.render("home", {
+          username: user[0]["name"],
+        })
+      }
+      else{
+        res.redirect("/login")
+      }
     })
+
   } else {
     res.redirect("/login")
   }

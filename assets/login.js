@@ -1,4 +1,5 @@
 $(function() {
+  updateButton();
   $("#submit").click(function() {
     $.ajax({
       url: location.origin + '/login/' + $("#username").val(),
@@ -10,6 +11,10 @@ $(function() {
     })
   })
   $("#username").keyup(function() {
+    updateButton();
+  })
+
+  function updateButton() {
     $.ajax({
       url: location.origin + '/account/' + $("#username").val(),
       success: function(result) {
@@ -22,5 +27,5 @@ $(function() {
       },
       async: true
     })
-  })
+  }
 })
