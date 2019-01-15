@@ -27,8 +27,8 @@ app.get("/", function(req, res) {
         res.render("home", {
           username: user[0]["name"],
         })
-      }
-      else{
+      } else {
+        res.clearCookie("username")
         res.redirect("/login")
       }
     })
