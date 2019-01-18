@@ -8,7 +8,7 @@ module.exports.run = function(query, callback) {
     password: "yoursql",
     database: "taghunt"
   });
-
+  
   con.connect(function(err) {
     if (err) throw err;
     con.query(query, function(err, result) {
