@@ -5,7 +5,6 @@ const userhandler = require('./userhandler');
 const sqlhandler = require('./sqlhandler');
 const cookie = require('cookie-parser');
 
-
 var app = express()
 
 
@@ -21,8 +20,8 @@ userhandler.attach(app)
 
 //homepage (index.html lol)
 app.get("/", function(req, res) {
-  if (req.cookies["username"]) {
-    sqlhandler.run(`select * from users where name='${req.cookies["username"]}'`, function(user) {
+  if (req.cookies.username) {
+    sqlhandler.run(`select * from users where name='${req.cookies.username}'`, function(user) {
       if (user.length != 0) {
         res.render("home", {
           username: user[0]["name"],
@@ -39,7 +38,7 @@ app.get("/", function(req, res) {
 })
 
 app.use(function (req, res, next) {
-  res.status(404).send('404 - Not Found!');
+  res.status(404).send('404 - Not Found!')
 });
 
 app.listen(80)

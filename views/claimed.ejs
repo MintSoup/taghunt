@@ -7,18 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TagHunt</title>
   <link rel="stylesheet" href="/claimed.css">
+
 </head>
 
 <body>
-  <div>
+  <div id=msg>
     <%= message %>
-
-    <script>
-      setTimeout(() => {
-        document.location.href = location.origin
-      }, 2500)
-    </script>
   </div>
+  <script>
+    setTimeout(function(){document.location.href = location.origin;}, 2000);
+  </script>
 </body>
 
 </html>
