@@ -21,6 +21,7 @@ userhandler.attach(app)
 //homepage (index.html lol)
 app.get("/", function(req, res) {
   if (req.cookies.username) {
+    
     sqlhandler.run(`select * from users where name='${req.cookies.username}'`, function(user) {
       if (user.length != 0) {
         res.render("home", {

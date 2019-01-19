@@ -13,6 +13,11 @@
 <body>
   <div id=msg>
     <%= message %>
+    <br>
+    <% if (locals.tagtype) { %>
+      <img src="/<%= tagtype %>.svg"></img>
+    <% } %>
+     
   </div>
   <script>
     setTimeout(function(){document.location.href = location.origin;}, 2000);

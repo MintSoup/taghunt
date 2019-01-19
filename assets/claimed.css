@@ -1,6 +1,7 @@
 body {
   background-color: #202020;
 }
+
 #msg {
   position: absolute;
   left: 50%;
@@ -8,9 +9,17 @@ body {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   color: #00e007;
-  font-size: 32px;
+  font-size: calc(1.5vw + 1.5vh + 1.3vmin);
   font-family: Arial;
+  white-space: nowrap;
+}
 
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  padding: 5%;
 }
 
 button {
@@ -30,4 +39,3 @@ button:hover {
   background-color: #0c7f00;
   transition: 0.15s;
 }
-
