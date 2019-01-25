@@ -1,11 +1,12 @@
 $(function() {
 
-  var tagCount = {
+  var collectedTags = {
     fire: 0,
     wind: 0,
     water: 0,
     earth: 0
   }
+
   updateTagCount()
   $("#logout").click(function() {
     $.get(location.origin + '/logout/', function(result) {
@@ -18,7 +19,7 @@ $(function() {
     var iconID = $(e.target).attr("id")
     $.get(location.origin + '/count/' + iconID, function(result) {
         $(".tagtype").text(jsUcfirst(iconID))
-        $("#collected").text(tagCount[iconID])
+        $("#collected").text(collectedTags[iconID])
         $("#remaining").text(result)
         $(".w3-modal").css('display', 'block')
       })
@@ -35,9 +36,9 @@ $(function() {
       ownedTags = JSON.parse(result[0].ownedTags)
       for (var i = 0; i < ownedTags.length; i++) {
         $.get(location.origin + "/data/" + ownedTags[i], function(result) {
-          if (tagCount[result[0]["type"]])
-            tagCount[result[0]["type"]]++;
-          else tagCount[result[0]["type"]] = 1;
+          if (collectedTags[result[0]["type"]])
+            collectedTags[result[0]["type"]]++;
+          else collectedTags[result[0]["type"]] = 1;
         })
       }
     })

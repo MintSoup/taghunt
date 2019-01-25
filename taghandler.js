@@ -9,11 +9,11 @@ if (!String.prototype.format) {
     });
   };
 }
-const sqlhandler = require('./sqlhandler');
-const random = require('random-number');
+const sqlhandler = require('./sqlhandler')
+const random = require('random-number')
 const {
   SHA3
-} = require('sha3');
+} = require('sha3')
 
 const password = 'f5fa6c56b48890813bb32de1068e2294fa1587c4cd218911d7d74d7c773ee1cb1760c5face2ce26f79b26815fcf9d9a8c28493a9e50979a7e0fc531cee0a223f'
 
@@ -115,9 +115,6 @@ module.exports.attach = function (app) {
   })
 
 }
-
-
-
 
 
 

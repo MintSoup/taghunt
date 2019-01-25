@@ -1,21 +1,22 @@
 const mysql = require('mysql');
 
+var pool = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "yoursql",
+  database: "taghunt"
+});
+
 module.exports.run = function (query, callback) {
-  
-    var con = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "yoursql",
-      database: "taghunt"
+
+  pool.getConnection(function (err, connection) {
+    if (err) throw err
+    connection.query(query, function (err, rows) {
+      if (err) throw err
+      callback(rows)
+      connection.release();
     });
-    console.log(query)
-    con.connect(function(err) {
-      if (err) throw err;
-      con.query(query, function(err, result) {
-        if (err) {
-          throw err
-        };
-        if (callback) callback(result)
-      });
-    });
+  });
+
+
 }
