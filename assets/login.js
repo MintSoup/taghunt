@@ -1,9 +1,9 @@
-$(function() {
+$(function () {
   updateButton();
-  $("#submit").click(function() {
+  $("#submit").click(function () {
     login();
   })
-  $("#username").keyup(function(e) {
+  $("#username").keyup(function (e) {
     if (e.keyCode == 13) {
       login();
     }
@@ -15,7 +15,7 @@ $(function() {
   function updateButton() {
     $.ajax({
       url: location.origin + '/account/' + $("#username").val(),
-      success: function(result) {
+      success: function (result) {
         if (result.length == 0) {
           $("#submit").text("Create Account")
         } else {
@@ -29,9 +29,12 @@ $(function() {
   function login() {
     $.ajax({
       url: location.origin + '/login/' + $("#username").val(),
-      success: function(result) {
+      success: function (result) {
+        if (typeof tagToClaim != 'undefined')
+          document.location.href = tagToClaim
+        else
+          document.location.href = location.origin
 
-        document.location.href = location.origin
       },
       async: true
     })

@@ -7,6 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TagHunt</title>
   <link rel="stylesheet" href="/login.css">
+  <% if (locals.url) { %>
+    <script>
+      let tagToClaim = location.origin + "/tag/" + "<%= url %>";
+    </script>
+  <%}%> 
   <script src="/login.js"></script>
 </head>
 

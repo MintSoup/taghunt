@@ -63,8 +63,8 @@ module.exports.attach = function (app) {
   //claim tag with nice ui
   app.get("/tag/:id", function (req, res) {
     if (!req.cookies["username"]) {
-      res.render("claimed", {
-        message: "Please log in and rescan the code.",
+      res.render("login", {
+        url: req.params.id
       })
     } else {
       claim(req.params.id, req.cookies["username"], function (result) {
