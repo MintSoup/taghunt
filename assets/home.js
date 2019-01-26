@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
   var collectedTags = {
     fire: 0,
@@ -7,41 +7,53 @@ $(function() {
     earth: 0
   }
 
+  var remainingTags = {
+    fire: 0,
+    wind: 0,
+    water: 0,
+    earth: 0
+  }
+
   updateTagCount()
-  $("#logout").click(function() {
-    $.get(location.origin + '/logout/', function(result) {
+
+  $("#logout").click(function () {
+    $.get(location.origin + '/logout/', function (result) {
       document.location.href = location.origin
     })
   })
 
-  $('.icon').click(function(e) {
+  $('.icon').click(function (e) {
 
     var iconID = $(e.target).attr("id")
-    $.get(location.origin + '/count/' + iconID, function(result) {
-        $(".tagtype").text(jsUcfirst(iconID))
-        $("#collected").text(collectedTags[iconID])
-        $("#remaining").text(result)
-        $(".w3-modal").css('display', 'block')
-      })
+    $(".tagtype").text(jsUcfirst(iconID))
+    $("#collected").text(collectedTags[iconID])
+    $("#remaining").text(remainingTags[iconID])
+    $(".w3-modal").css('display', 'block')
   })
 
-  $('.w3-modal').click(function(e) {
+  $('.w3-modal').click(function (e) {
 
     $(".w3-modal").css('display', 'none')
   })
 
 
   function updateTagCount() {
-    $.get(location.origin + "/account/" + Cookies.get("username"), function(result) {
+    $.get(location.origin + "/account/" + Cookies.get("username"), function (result) {
       ownedTags = JSON.parse(result[0].ownedTags)
       for (var i = 0; i < ownedTags.length; i++) {
-        $.get(location.origin + "/data/" + ownedTags[i], function(result) {
+        $.get(location.origin + "/data/" + ownedTags[i], function (result) {
           if (collectedTags[result[0]["type"]])
             collectedTags[result[0]["type"]]++;
           else collectedTags[result[0]["type"]] = 1;
         })
       }
     })
+
+    for (const [kyeet, value] of Object.entries(remainingTags)) {
+      $.get(location.origin + "/count/" + kyeet, function (result) {
+        remainingTags[kyeet] = result
+      })
+    }
   }
 
   function jsUcfirst(string) {
@@ -58,7 +70,7 @@ function create(type, count, password) {
       count: count,
       password: password
     },
-    function(data) {
+    function (data) {
       console.log(data)
     });
 }
