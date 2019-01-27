@@ -1,11 +1,11 @@
 body {
-  background-color: #202020;
+  background-color: #0c0c0c;
 }
 
 input[type="text"] {
   background-color: transparent;
   border: none;
-  border-bottom: 3px solid #00e007;
+  border-bottom: 3px solid #005f05;
   padding: 8px;
   font-size: 18px;
   color: white;
@@ -17,7 +17,7 @@ input[type="text"]:focus {
 }
 
 button {
-  background-color: #00e007;
+  background-color: #005f05;
   cursor: pointer;
   border: none;
   border-radius: 0px;
@@ -26,12 +26,12 @@ button {
   font-size: 20px;
   margin: 8px 0px;
   width: 100%;
-  transition: 0.15s;
+  transition: 0.3s;
 }
 
 button:hover {
-  background-color: #0c7f00;
-  transition: 0.15s;
+  background-color: #003303;
+  transition: 0.3s;
 }
 
 div {

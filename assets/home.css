@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  background-color: #202020;
+  background-color: #0c0c0c;
   color: white;
   font-size: 20px;
   margin: 0;
@@ -16,21 +16,21 @@ body {
 }
 
 #logout {
-  background-color: #00e007;
+  background-color: #005f05;
   cursor: pointer;
   border: none;
   color: white;
-  padding: 6px 20px;
+  padding: 2vh 20px;
   font-size: 20px;
-  margin: 8px 0px;
+  margin: 4vh 0 0 0;
   width: 100%;
   border-radius: 0;
-  transition: 0.15s;
+  transition: 0.2s;
 }
 
 #logout:hover {
-  background-color: #0c7f00;
-  transition: 0.15s;
+  background-color: #003303;
+  transition: 0.2s;
 }
 
 .log {

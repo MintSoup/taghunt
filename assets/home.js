@@ -29,11 +29,12 @@ $(function () {
     $("#collected").text(collectedTags[iconID])
     $("#remaining").text(remainingTags[iconID])
     $(".w3-modal").css('display', 'block')
+  
   })
 
   $('.w3-modal').click(function (e) {
-
     $(".w3-modal").css('display', 'none')
+    $("#main").css("filter", "none")
   })
 
 

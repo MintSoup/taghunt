@@ -13,31 +13,24 @@
 </head>
 
 <body>
- 
+
   <div class="w3-cell-row w3-display-middle icons" style="position: absolute; top: 40%;">
     <div class="w3-col l3 m4 s6" style="padding: 15px 5px;"><img class=icon id=earth src="earth.svg"></img></div>
     <div class="w3-col l3 m4 s6" style="padding: 15px 5px;"><img class=icon id=fire src="fire.svg"></img></div>
     <div class="w3-col l3 m4 s6" style="padding: 15px 5px;"><img class=icon id=wind src="wind.svg"></img></div>
     <div class="w3-col l3 m4 s6" style="padding: 15px 5px;"><img class=icon id=water src="water.svg"></img></div>
   </div>
-  <div class="w3-modal">
-    <div class="w3-modal-content w3-animate-right" style="background-color: #050505; padding: 20px; text-align: center;">
-
-      <span class="tagtype"></span> tags remaining: <span id="remaining"></span><br>
-      <span class="tagtype"></span> tags collected: <span id=collected></span>
-    </div>
-  </div>
+  
   <div class="w3-cell-row log">
     Logged in as
     <%= username %><br>
     <button id="logout">Log Out</button>
   </div>
-
-
-  <div class=loaderbackground></div>
-
-  <div id=load>
-    <div class=loader></div>
+  <div class="w3-modal">
+    <div class="w3-modal-content w3-animate-right" style="background-color: #050505; padding: 20px; text-align: center;">
+      <span class="tagtype"></span> tags remaining: <span id="remaining"></span><br>
+      <span class="tagtype"></span> tags collected: <span id=collected></span>
+    </div>
   </div>
 
 </body>
