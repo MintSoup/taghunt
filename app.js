@@ -18,10 +18,10 @@ userhandler.attach(app)
 
 
 let round = {
-  number: 0,
-  end: Date(2019, 02, 25)
+  number: 1,
+  end: new Date(2019, 02, 25)
 }
-currentDate = Date()
+
 
 //homepage (index.html lol)
 app.get("/", function (req, res) {
@@ -29,8 +29,14 @@ app.get("/", function (req, res) {
 
     sqlhandler.run(`select * from users where name='${req.cookies.username}'`, function (user) {
       if (user.length != 0) {
+        var status = "no longer"
+        if (user[0].active)
+          status = "still"
         res.render("home", {
           username: user[0]["name"],
+          round: round.number,
+          end: `${round.end.getDate()}.${round.end.getMonth()}.${round.end.getFullYear()}`,
+          status: status
         })
       } else {
         res.clearCookie("username")

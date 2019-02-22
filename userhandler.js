@@ -14,7 +14,7 @@ module.exports.attach = function(app) {
   app.get("/login/:username", function(req, res) {
     sqlhandler.run(`select * from users where name='${req.params.username}'`, function(result) {
       if (result.length == 0) {
-        sqlhandler.run(`insert into users values ('${req.params.username}', '[]')`, function() {
+        sqlhandler.run(`insert into users values ('${req.params.username}', '[]', TRUE)`, function() {
           res.cookie("username", req.params.username).end()
         })
       } else {

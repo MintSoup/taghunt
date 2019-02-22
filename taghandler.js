@@ -102,6 +102,8 @@ module.exports.attach = function (app) {
         res.send("Invalid tag.").end()
       else if (result == 3)
         res.send("Tag has already been claimed").end()
+      else if (result == 4)
+        res.send("You are out of the game and can no longer claim tags.").end()
       else
         res.send(result).end()
     })
@@ -163,6 +165,10 @@ function claim(id, username, callback) {
   sqlhandler.run(`select * from users where name='${username}'`, function (user) {
     if (user.length == 0) {
       callback(1)
+      return
+    }
+    if (!user[0].active){
+      callback(4)
       return
     }
     sqlhandler.run(`select * from tags where id='${id}'`, function (tag) {
