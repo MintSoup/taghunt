@@ -4,7 +4,7 @@ const tagHandler = require('./taghandler');
 const userhandler = require('./userhandler');
 const sqlhandler = require('./sqlhandler');
 const cookie = require('cookie-parser');
-
+const round = require("./round")
 var app = express()
 
 
@@ -15,12 +15,6 @@ app.use(cookie("big oof"))
 app.use(express.urlencoded()); // to support URL-encoded bodies
 tagHandler.attach(app)
 userhandler.attach(app)
-
-
-let round = {
-  number: 1,
-  end: new Date(2019, 02, 25)
-}
 
 
 //homepage (index.html lol)
@@ -47,6 +41,10 @@ app.get("/", function (req, res) {
   } else {
     res.redirect("/login")
   }
+})
+
+app.get("/round", function(req, res){
+  res.send(round).end()
 })
 
 app.use(function (req, res, next) {

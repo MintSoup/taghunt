@@ -17,9 +17,24 @@ $(function () {
       url: location.origin + '/account/' + $("#username").val(),
       success: function (result) {
         if (result.length == 0) {
-          $("#submit").text("Create Account")
+          $.ajax({
+            url: location.origin + '/round/',
+            success: function (result) {
+
+              if (result.number == 1) {
+                $("#submit").text("Create Account")
+              } else {
+                $("#submit").css("background-color", "#686868")
+             
+              }
+            },
+            async: true
+
+          })
+
         } else {
           $("#submit").text("Log in")
+          $("#submit").css("background-color", "#005f05")
         }
       },
       async: true
@@ -27,6 +42,7 @@ $(function () {
   }
 
   function login() {
+    
     $.ajax({
       url: location.origin + '/login/' + $("#username").val(),
       success: function (result) {

@@ -80,6 +80,14 @@ module.exports.attach = function (app) {
           res.render("claimed", {
             message: "Tag has already been claimed."
           })
+        else if (result == 4)
+          res.render("claimed", {
+            message: "You are out of the game and can no longer claim tags."
+          })
+        else if (result == 5)
+          res.render("claimed", {
+            message: "You have claimed all the tags you needed for this round, no need to search for any more tags!"
+          })
         else {
           var msg;
           if ("aeiou".indexOf((result.type.toLowerCase().charAt(0))) != -1) {
@@ -104,6 +112,8 @@ module.exports.attach = function (app) {
         res.send("Tag has already been claimed").end()
       else if (result == 4)
         res.send("You are out of the game and can no longer claim tags.").end()
+      else if (result == 5)
+        res.send("You have claimed all the tags you needed for this round, no need to search for any more tags!").end()
       else
         res.send(result).end()
     })
@@ -167,10 +177,16 @@ function claim(id, username, callback) {
       callback(1)
       return
     }
-    if (!user[0].active){
+    if (!user[0].active) {
       callback(4)
       return
     }
+  /*  var collectedTags = []
+    for(var i=0; i<user[0].ownedTags.length; i++){
+      getTag(user[0].collectedTags[i], function(tag){
+        //TODO: check if the user needs to collect the CURRENT tag type
+      })
+    }*/
     sqlhandler.run(`select * from tags where id='${id}'`, function (tag) {
 
       if (tag.length == 0) {
