@@ -11,6 +11,7 @@ if (!String.prototype.format) {
 }
 const sqlhandler = require('./sqlhandler')
 const random = require('random-number')
+const round = require("./round")
 const {
   SHA3
 } = require('sha3')
@@ -86,7 +87,7 @@ module.exports.attach = function (app) {
           })
         else if (result == 5)
           res.render("claimed", {
-            message: "You have claimed all the tags you needed for this round, no need to search for any more tags!"
+            message: "You have claimed all the tags you needed for this round,<br> no need to search for any more tags!"
           })
         else {
           var msg;
@@ -181,32 +182,39 @@ function claim(id, username, callback) {
       callback(4)
       return
     }
-  /*  var collectedTags = []
-    for(var i=0; i<user[0].ownedTags.length; i++){
-      getTag(user[0].collectedTags[i], function(tag){
-        //TODO: check if the user needs to collect the CURRENT tag type
+    var collectedTags = []
+    for (var i = 0; i < user[0].ownedTags.length; i++) {
+      getTag(user[0].ownedTags[i], function (tag) {
+        collectedTags.push(tag)
       })
-    }*/
-    sqlhandler.run(`select * from tags where id='${id}'`, function (tag) {
+    }
+    getTag(id, function (result) {
+      if (!round.canClaim(collectedTags, result)) {
+        callback(5)
+      } else {
 
-      if (tag.length == 0) {
-        callback(2)
-        return
-      }
-      if (tag[0]["active"] != 1) {
-        callback(3)
-        return
-      }
-      var ownedTags = JSON.parse(user[0]["ownedTags"])
-      ownedTags.push(tag[0]["id"])
-      var tagString = JSON.stringify(ownedTags)
-      sqlhandler.run(`update users set ownedTags='${tagString}' where name='${username}'`, function (result) {
-        setActive(tag[0]["id"], false, function () {
-          callback(tag[0])
+        sqlhandler.run(`select * from tags where id='${id}'`, function (tag) {
+
+          if (tag.length == 0) {
+            callback(2)
+            return
+          }
+          if (tag[0]["active"] != 1) {
+            callback(3)
+            return
+          }
+          var ownedTags = JSON.parse(user[0]["ownedTags"])
+          ownedTags.push(tag[0]["id"])
+          var tagString = JSON.stringify(ownedTags)
+          sqlhandler.run(`update users set ownedTags='${tagString}' where name='${username}'`, function (result) {
+            setActive(tag[0]["id"], false, function () {
+              callback(tag[0])
+            })
+
+          })
+
         })
-
-      })
-
+      }
     })
   })
 }
