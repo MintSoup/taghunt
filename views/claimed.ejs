@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TagHunt</title>
   <link rel="stylesheet" href="/claimed.css">
+  <script src="http://cdn.jsdelivr.net/gh/kimmobrunfeldt/progressbar.js/dist/progressbar.js"></script>
+
 
 </head>
 
@@ -19,15 +21,39 @@
     <% if (locals.tagtype) { %>
     <img src="/<%= tagtype %>.svg"></img>
     <% } %>
-    <div id=bar></div>
   </div>
+  <div id=bar></div>
+
+
+
+
+
+
   <script>
-    var timeout = Math.max(2000, 1000 * $("#yeet").text().split(" ").length / 5)
-    alert(timeout)
+    var timeout = Math.max(2000, 1000 * $("#yeet").text().split(" ").length / 10)
     setTimeout(function () {
       document.location.href = location.origin;
     }, timeout)
+    var bar = new ProgressBar.Line("#bar", {
+      easing: 'easeInOut',
+      duration: timeout,
+      color: 'green',
+      trailColor: 'transparent',
+      trailWidth: 1,
+      svgStyle: {
+        margin: 0,
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        width: "100%",
+        height: "5vh"
+        
+      }
+    });
+
+    bar.animate(1.0); // Number from 0.0 to 1.0
   </script>
 </body>
+
 
 </html>
