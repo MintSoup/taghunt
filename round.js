@@ -1,9 +1,7 @@
 module.exports = {
     number: 1,
-    end: new Date(2019, 02, 25),
-    canClaim: function(tags, tag){
-        if(tags.length < 2)
-            return true
-        else return false
+    end: new Date(2019, 03, 9),
+    canClaim: function(collectedTags, tag){
+        return collectedTags.length < 2;
     }
 }

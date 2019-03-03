@@ -43,9 +43,9 @@ $(function () {
       ownedTags = JSON.parse(result[0].ownedTags)
       for (var i = 0; i < ownedTags.length; i++) {
         $.get(location.origin + "/data/" + ownedTags[i], function (result) {
-          if (collectedTags[result[0]["type"]])
-            collectedTags[result[0]["type"]]++;
-          else collectedTags[result[0]["type"]] = 1;
+          if (collectedTags[result["type"]])
+            collectedTags[result["type"]]++;
+          else collectedTags[result["type"]] = 1;
         })
       }
     })

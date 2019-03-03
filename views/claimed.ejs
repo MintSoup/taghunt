@@ -12,15 +12,21 @@
 
 <body>
   <div id=msg>
-    <%- message %>
+    <div id=yeet>
+      <%- message %>
+    </div>
     <br>
     <% if (locals.tagtype) { %>
-      <img src="/<%= tagtype %>.svg"></img>
+    <img src="/<%= tagtype %>.svg"></img>
     <% } %>
-     
+    <div id=bar></div>
   </div>
   <script>
-    setTimeout(function(){document.location.href = location.origin;}, 2000);
+    var timeout = Math.max(2000, 1000 * $("#yeet").text().split(" ").length / 5)
+    alert(timeout)
+    setTimeout(function () {
+      document.location.href = location.origin;
+    }, timeout)
   </script>
 </body>
 
