@@ -26,11 +26,18 @@ app.get("/", function (req, res) {
         var status = "no longer"
         if (user[0].active)
           status = "still"
+        var need = 2 - JSON.parse(user[0].ownedTags).length;
+        var mission;
+        if (need > 0) 
+          mission = "Find " + need + " more tag(s)!"
+        else
+          mission = "You passed the round! Wait for the next one!"
         res.render("home", {
           username: user[0]["name"],
           round: round.number,
           end: `${round.end.getDate()}.${round.end.getMonth()}.${round.end.getFullYear()}`,
-          status: status
+          status: status,
+          mission: mission
         })
       } else {
         res.clearCookie("username")
