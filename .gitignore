@@ -220,3 +220,5 @@ mysql-8.0.13-winx64/share/swedish/errmsg.sys
 mysql-8.0.13-winx64/share/ukrainian/errmsg.sys
 mysql-8.0.13-winx64/share/uninstall_rewriter.sql
 node_modules/
+qrcodegenerator/
+run.bat
