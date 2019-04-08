@@ -88,7 +88,7 @@ module.exports.attach = function (app) {
           })
         else if (result == 5)
           res.render("claimed", {
-            message: "You have claimed all the tags you needed for this round, no need to search for any more tags!"
+            message: "You have claimed all of the tags of this type you needed for this round, no need to search for any more tags!"
           })
         else {
           var msg;
@@ -115,7 +115,7 @@ module.exports.attach = function (app) {
       else if (result == 4)
         res.send("You are out of the game and can no longer claim tags.").end()
       else if (result == 5)
-        res.send("You have claimed all the tags you needed for this round, no need to search for any more tags!").end()
+        res.send("You have claimed all the tags of this type you needed for this round, no need to search for any more tags!").end()
       else
         res.send(result).end()
     })
